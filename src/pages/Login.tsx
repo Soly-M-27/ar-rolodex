@@ -11,7 +11,8 @@ export function Login({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = () => {
     console.log("Login?: ", email, password);
     signInWithEmailAndPassword(projectAuth, email, password);
   };
