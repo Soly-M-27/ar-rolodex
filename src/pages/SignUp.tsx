@@ -12,18 +12,18 @@ import { Navigate } from "react-router-dom";
 type Props = {};
 
 export function SignUp({}: Props) {
+  // set up state and useHooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setdisplayName] = useState<string>("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [createUser, user, loading, error] =
-    useCreateUserWithEmailAndPassword(projectAuth);
-
+  const [createUser, user, loading, error] = useCreateUserWithEmailAndPassword(projectAuth);
   const [updateProfile, ..._] = useUpdateProfile(projectAuth);
   const [uploadFile, ...__] = useUploadFile();
 
+
   const handleSubmit = async () => {
-    console.log("Login?: ", email, password);
+    // create user
     const res = await createUser(email, password);
     if (!res) {
       console.log("User does not exist", user);
@@ -40,6 +40,7 @@ export function SignUp({}: Props) {
             contentType: 'image/jpeg'
         });
     }
+
     const imgURL = await getDownloadURL(FileRef);
     await updateProfile({ photoURL: imgURL });
     console.log("photoURL: ", imgURL);
@@ -56,19 +57,22 @@ export function SignUp({}: Props) {
       return;
     }
     let selected = e.target.files[0];
-    console.log(selected);
-
+    //TODO: return jsx instead of console.loggin here
     if (!selected) {
       console.log("Please select a file");
+      return
     }
+    //TODO: return jsx instead of console.loggin here
     if (!selected.type.includes("image")) {
       console.log("Selected file must be an image");
+      return
     }
+    //TODO: return jsx instead of console.loggin here
     if (!(selected.size > 100000)) {
       console.log("Image file size must be less than 100kb");
+      return
     }
     setThumbnail(selected);
-    console.log("Thumbnail updated");
   };
 
   if (loading) {
