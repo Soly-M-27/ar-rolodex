@@ -1,5 +1,4 @@
 import {
-  useAuthState,
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
@@ -7,9 +6,8 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { projectAuth, db, projectStorage } from "../firebase/config";
-import { useState, MouseEventHandler } from "react";
+import {useState, ChangeEvent } from "react";
 import { Navigate } from "react-router-dom";
-import { User, UserCredential, updateProfile } from "firebase/auth";
 
 type Props = {};
 
@@ -21,8 +19,8 @@ export function SignUp({}: Props) {
   const [createUser, user, loading, error] =
     useCreateUserWithEmailAndPassword(projectAuth);
 
-  const [updateProfile, updating, a_error] = useUpdateProfile(projectAuth);
-  const [uploadFile, uploading, snapshot, use_error] = useUploadFile();
+  const [updateProfile, ..._] = useUpdateProfile(projectAuth);
+  const [uploadFile, ...__] = useUploadFile();
 
   const handleSubmit = async () => {
     console.log("Login?: ", email, password);
@@ -38,7 +36,7 @@ export function SignUp({}: Props) {
     const FileRef = ref(projectStorage, uploadPath);
 
     if (thumbnail) {
-        const result = await uploadFile(FileRef, thumbnail, {
+        await uploadFile(FileRef, thumbnail, {
             contentType: 'image/jpeg'
         });
     }
@@ -53,7 +51,10 @@ export function SignUp({}: Props) {
     });
   };
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
     let selected = e.target.files[0];
     console.log(selected);
 
