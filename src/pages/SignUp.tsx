@@ -87,7 +87,7 @@ export function SignUp({}: Props) {
 
   return (
     <div className="flex flex-col justify-center gap-4">
-      <h2>Log In</h2>
+      <h2>Sign Up</h2>
       <label>
         <span className="mr-2">email:</span>
         <input
