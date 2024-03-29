@@ -9,6 +9,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          {/*!user && <Sidebar ...>...</Sidebar>*/}
           <Route path="/" element={<Home />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
