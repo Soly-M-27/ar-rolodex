@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { projectAuth } from "../firebase/config";
 import { useContext } from "react";
@@ -17,7 +17,7 @@ const Links = () => {
   return (
     <ul className="hidden lg:flex ml-auto">
       <li>
-        <Link to="/Dashboard" className="flex ml-4 gap-2">
+        <Link to="/" className="flex ml-4 gap-2">
           <img src={DashboardIcon} alt="dashboard icon" />
           <span className="font-bold">Dashboard</span>
         </Link>{" "}
@@ -27,6 +27,11 @@ const Links = () => {
           <img src={AddIcon} alt="dashboard icon" />
           <span className="font-bold">New Build</span>
         </Link>{" "}
+      </li>
+      <li>
+        <button className="bg-red-500" onClick={() => signOut(projectAuth)}>
+          Sign Out
+        </button>
       </li>
     </ul>
   );
@@ -59,7 +64,7 @@ export function Navbar({}: Props) {
               >
                 <FontAwesomeIcon icon={faBars} />
               </div>
-              <Links/>
+              <Links />
             </div>
           )}
         </ul>

@@ -27,4 +27,4 @@ const projectStorage = getStorage(app);
 // timestamp
 const timestamp = Timestamp; 
 
-export { db, projectAuth, projectStorage, timestamp }; 
+export { app, db, projectAuth, projectStorage, timestamp }; 

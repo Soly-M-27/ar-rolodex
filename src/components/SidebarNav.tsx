@@ -4,6 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { SidebarContext } from "../context/SidebarContext";
 import { useContext } from "react";
 import { projectAuth } from "../firebase/config";
+import { signOut } from "firebase/auth";
 
 //assets
 import DashboardIcon from "../assets/dashboard_icon.svg";
@@ -29,7 +30,7 @@ export function SidebarNav({}: Props) {
         <img src={user.photoURL || ""} className="rounded-full w-52" />
         <ul>
           <li>
-            <Link to="/Dashboard" className="flex ml-4 gap-2">
+            <Link to="/" className="flex ml-4 gap-2">
               <img src={DashboardIcon} alt="dashboard icon" />
               <span className="font-bold">Dashboard</span>
             </Link>{" "}
@@ -39,6 +40,11 @@ export function SidebarNav({}: Props) {
               <img src={AddIcon} alt="dashboard icon" />
               <span className="font-bold">New Build</span>
             </Link>{" "}
+          </li>
+          <li>
+            <button className="bg-red-500" onClick={() => signOut(projectAuth)}>
+              Sign Out
+            </button>
           </li>
         </ul>
       </div>
