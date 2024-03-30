@@ -43,7 +43,7 @@ export function Navbar({}: Props) {
 
   return (
     <>
-      <div className="bg-green-500 p-4">
+      <div className="bg-gray-700 p-4">
         <ul className="flex">
           {!user && (
             <div className="flex w-auto ml-auto gap-3 mr-2">

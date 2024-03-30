@@ -23,12 +23,12 @@ export function SidebarNav({}: Props) {
     <Sidebar
       show={sidebarOpen}
       setShow={setSidebarOpen}
-      className="bg-green-400"
+      className="bg-gray-800"
     >
       <div className="p-4">
-        <img src={TempleIcon} />
         <img src={user.photoURL || ""} className="rounded-full w-52" />
         <ul>
+          <img className="ml-4" src={TempleIcon} />
           <li>
             <Link to="/" className="flex ml-4 gap-2">
               <img src={DashboardIcon} alt="dashboard icon" />
@@ -37,12 +37,12 @@ export function SidebarNav({}: Props) {
           </li>
           <li>
             <Link to="/" className="flex ml-4 gap-2">
-              <img src={AddIcon} alt="dashboard icon" />
+              <img src={AddIcon} alt="dashboard icon text-white" />
               <span className="font-bold">New Build</span>
             </Link>{" "}
           </li>
           <li>
-            <button className="bg-red-500" onClick={() => signOut(projectAuth)}>
+            <button className="bg-blue-800 px-3 ml-4 mt-2 rounded" onClick={() => signOut(projectAuth)}>
               Sign Out
             </button>
           </li>
