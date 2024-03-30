@@ -21,7 +21,7 @@ export function SignUp({}: Props) {
   const [updateProfile, ..._] = useUpdateProfile(projectAuth);
   const [uploadFile, ...__] = useUploadFile();
 
-
+  //TODO: make more reusable because we may use this in multiple places
   const handleSubmit = async () => {
     // create user
     const res = await createUser(email, password);
