@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Input, DropDown } from "../components";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, query, collection, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { app, projectAuth } from "../firebase/config";
 import {  getFirestore } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 
 type Props = {}
@@ -16,6 +17,17 @@ export function Create({ }: Props) {
   const [user, ..._] = useAuthState(projectAuth);
   const [dropDown, setDropDown] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [BusinessCardsDocs, ...__] = useCollection(
+    query(
+      collection(getFirestore(app), "BusinessCards"),
+      where("uid", "==", user?.uid || "")
+    ),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+
+
 
   //Form State
   const [name, setName] = useState<string>("");
@@ -43,7 +55,12 @@ export function Create({ }: Props) {
     }
     const db = getFirestore(app)
     const docRef = doc(db, "BusinessCards", user.uid);
-    await setDoc(docRef, FormData);
+    const BusinessCardData = BusinessCardsDocs?.docs.map((doc) => doc.data());
+    if (!BusinessCardData) {
+      await setDoc(docRef, {"cards":[FormData]});
+      return;
+    }
+    await setDoc(docRef, {"cards":[...BusinessCardData.map(data=>data.cards), FormData]});
   }
   return (
     <div className="mt-20">
