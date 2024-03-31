@@ -1,8 +1,9 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Input, DropDown } from "../components";
-import { setDoc, doc } from "firebase/firestore/lite";
-import {useAuthState} from "react-firebase-hooks/auth";
-import { db, projectAuth} from "../firebase/config";
+import { setDoc, doc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { app, projectAuth } from "../firebase/config";
+import {  getFirestore } from "firebase/firestore";
 
 
 type Props = {}
@@ -28,8 +29,7 @@ export function Create({ }: Props) {
   }
   const [socialsValues, setSocials] = useState<SocialsData[]>([]);
 
-  const HandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const HandleSubmit = async () => {
     const FormData = {
       name,
       businessName,
@@ -41,11 +41,13 @@ export function Create({ }: Props) {
     if (!user) {
       return;
     }
-    await setDoc(doc(db, "BusinessCard", user.uid), FormData);
+    const db = getFirestore(app)
+    const docRef = doc(db, "BusinessCards", user.uid);
+    await setDoc(docRef, FormData);
   }
   return (
     <div className="mt-20">
-      <form className="max-w-sm mx-auto" onSubmit={HandleSubmit} >
+      <div className="max-w-sm mx-auto" onSubmit={HandleSubmit} >
         <Input label="Name" type="text" id="Name" placeholder="Name" onChange={(e) => { setName(e.target.value) }} />
         <Input label="Business Name" type="text" id="Business name" placeholder="Business Name" onChange={(e) => setBusinessName(e.target.value)} />
         <Input label="Business Email" type="email" id="Business Email" placeholder="Business Email" onChange={(e) => setBusinessEmail(e.target.value)} />
@@ -73,8 +75,8 @@ export function Create({ }: Props) {
               })}
           />
         ))}
-        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-      </form>
+        <button onClick={() => HandleSubmit()} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      </div>
     </div>
   )
 }
