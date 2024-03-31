@@ -32,6 +32,7 @@ export function Create({ }: Props) {
   //Form State
   const [name, setName] = useState<string>("");
   const [businessName, setBusinessName] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
   const [businessEmail, setBusinessEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [linkTree, setLinkTree] = useState<string>("");
@@ -45,6 +46,7 @@ export function Create({ }: Props) {
     const FormData = {
       name,
       businessName,
+      location,
       businessEmail,
       phoneNumber,
       linkTree,
@@ -56,11 +58,13 @@ export function Create({ }: Props) {
     const db = getFirestore(app)
     const docRef = doc(db, "BusinessCards", user.uid);
     const BusinessCardData = BusinessCardsDocs?.docs.map((doc) => doc.data());
-    if (!BusinessCardData) {
+    if (!BusinessCardData || BusinessCardData?.length === 0) {
       await setDoc(docRef, {"cards":[FormData], uid: user.uid});
       return;
     }
+    console.log("BusinessCardData: ", BusinessCardData);
     const cards = BusinessCardData.map(data=>data.cards)[0]
+    console.log("cards: ", cards);
 
     await setDoc(docRef, {"cards":[...cards, FormData], uid: user.uid});
   }
@@ -69,6 +73,7 @@ export function Create({ }: Props) {
       <div className="max-w-sm mx-auto" onSubmit={HandleSubmit} >
         <Input label="Name" type="text" id="Name" placeholder="Name" onChange={(e) => { setName(e.target.value) }} />
         <Input label="Business Name" type="text" id="Business name" placeholder="Business Name" onChange={(e) => setBusinessName(e.target.value)} />
+        <Input label="Location" type="text" id="Location" placeholder="Location" onChange={(e) => setLocation(e.target.value)} />
         <Input label="Business Email" type="email" id="Business Email" placeholder="Business Email" onChange={(e) => setBusinessEmail(e.target.value)} />
         <Input label="Phone Number" type="tel" id="Phone Numebr" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} />
         <Input label="Link Tree" type="url" id="Link Tree" placeholder="Link Tree" onChange={(e) => setLinkTree(e.target.value)} />
