@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"; 
+import { faFacebook, faInstagram, faTwitter, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 type Props = {
   NameBusiness: string;
   Location: string;
   Link_Tree_Link: string;
   phone_number: string;
-  social_links?: { key: "facebook" | "instagram" | "twitter" | "github", value: string }[];
+  social_links?: { social: "Facebook" | "Instagram" | "Twitter" | "Github", url: string }[];
 }
 
 type LinkProps = {
@@ -15,7 +16,7 @@ type LinkProps = {
 
 export type SocialProps = {
   href: string;
-  social_key: "facebook" | "instagram" | "twitter" | "github";
+  social_key: "Facebook" | "Instagram" | "Twitter" | "Github";
 }
 const Link = ({ href, children }: LinkProps) => {
   return (
@@ -29,21 +30,22 @@ const Link = ({ href, children }: LinkProps) => {
 }
 
 //TODO: make the document in firebase fit this 
-/*
 export const SocialLink = ({ href,  social_key}: SocialProps) => {
   const socials = {
-    "facebook": <a href={href}><FontAwesomeIcon icon={["fab", "facebook"]} /></a>,
-    "instagram":<a href={href}> <FontAwesomeIcon icon={["fab", "instagram"]} /></a>,
-    "twitter":<a href={href}> <FontAwesomeIcon icon={["fab", "twitter"]} /></a>,
-    "github":<a href={href}> <FontAwesomeIcon icon={["fab", "github"]} /></a>,
+    "Facebook":  <FontAwesomeIcon icon={faFacebook} />,
+    "Instagram": <FontAwesomeIcon icon={faInstagram} />,
+    "Twitter":   <FontAwesomeIcon icon={faTwitter} />,
+    "Github":    <FontAwesomeIcon icon={faGithub} />,
+    "LinkedIn":  <FontAwesomeIcon icon={faLinkedin} />,
   }
   const social = socials[social_key];
-  return social;
+  if (!social) {
+    return 
+  }
+  return <a className="text-3xl" href={href}>{social}</a>;
 }
-*/
 
 export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links }: Props) {
-  console.log(social_links)
 
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700">
@@ -57,19 +59,19 @@ export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_num
         </a>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Location: {Location}</p>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Phone Number: {phone_number}</p>
+
+        <div className="flex justify-around mt-4 mb-4">
+        {social_links?.map((social) => {
+          return (
+            <SocialLink key={social.social} social_key={social.social} href={social.url}  />
+          )})
+        }
+        </div>
         <div className="flex justify-center">
           <Link href={Link_Tree_Link} >
             Visit my LinkTree
           </Link>
         </div>
-        {/*
-        {social_links.map((social) => {
-          return (
-            <SocialLink social_key={social.key} href={social.value}  />
-          )})
-        }
-        */}
-
       </div>
     </div>
   )

@@ -50,7 +50,7 @@ export function Home({ }: Props) {
   return (
     <>
       <div className="grid gap-4 m-4 md:grid-cols-2 lg:grid-cols-4">
-        {data.cards?.map((card, id) => {
+        {data.cards?.map((card:any, id:number) => {
           return (
             <>
               <Card key={id} NameBusiness={card.businessName} Link_Tree_Link={card.linkTree} Location={card.location} phone_number={card.phoneNumber} social_links={card.socialsValues} />

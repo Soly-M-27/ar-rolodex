@@ -9,7 +9,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 type Props = {}
 
-export const socials = ["Github", "LinkedIn", "Facebook", "Instagram"] as const;
+export const socials = ["Github", "LinkedIn", "Facebook", "Instagram", "Twitter"] as const;
 
 export type Socials = typeof socials;
 
@@ -54,7 +54,17 @@ export function Create({ }: Props) {
     }
     if (!user) {
       return;
+
     }
+
+
+
+
+
+
+
+
+
     const db = getFirestore(app)
     const docRef = doc(db, "BusinessCards", user.uid);
     const BusinessCardData = BusinessCardsDocs?.docs.map((doc) => doc.data());
