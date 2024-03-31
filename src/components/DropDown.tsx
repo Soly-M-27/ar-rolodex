@@ -1,4 +1,5 @@
 import {Dispatch, SetStateAction, ChangeEvent} from "react";
+import { Socials } from "../pages";
 type DropDownInputProps = {
   value: string;
   setSelectedValues: Dispatch<SetStateAction<string[]>>;
@@ -23,7 +24,7 @@ export const DropDownInput = ({ value, setSelectedValues }: DropDownInputProps) 
 type DropDownProps = {
   dropDown: boolean;
   setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
-  values?: string[];
+  values?: Socials;
   setSelectedValues: Dispatch<SetStateAction<string[]>>;
 }
 
