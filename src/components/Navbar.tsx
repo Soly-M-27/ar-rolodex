@@ -57,7 +57,7 @@ export function Navbar({}: Props) {
           )}
           {user && (
             <div className="flex w-full gap-3 mr-2 text-xl">
-              <div>Hello, {user.displayName}</div>
+              <div><Link to="/">Hello, {user.displayName}</Link></div>
               <div
                 className="ml-auto lg:hidden"
                 onClick={() => setSidebarOpen(true)}

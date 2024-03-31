@@ -1,6 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { projectAuth } from "../firebase/config";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link} from "react-router-dom";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getFirestore, collection, query, where } from "firebase/firestore";
 import { app } from "../firebase/config";
@@ -39,7 +39,9 @@ export function Home({ }: Props) {
   }
 
   if (documents?.docs.length === 0) {
-    return <div>""</div>;
+    return <div className="flex justify-center mt-20">
+      <Link className="bg-blue-500 rounded px-4" to={"/create"}>create your card</Link>
+    </div>;
   }
   console.log("data: ", data);
   return (
@@ -49,7 +51,6 @@ export function Home({ }: Props) {
           return (
             <>
               <Card key={id} NameBusiness={card.NameBusiness} Link_Tree_Link={card.Link_Tree_Link} Location={card.Location} phone_number={card.PhoneNum} social_links={card.Social_Media_Links} />
-              <Card key={id +1} NameBusiness={card.NameBusiness} Link_Tree_Link={card.Link_Tree_Link} Location={card.Location} phone_number={card.PhoneNum} social_links={card.Social_Media_Links}/>
             </>
           );
         })}
