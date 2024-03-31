@@ -1,5 +1,9 @@
 import { useState, FormEvent } from "react";
 import { Input, DropDown } from "../components";
+import { setDoc, doc } from "firebase/firestore/lite";
+import {useAuthState} from "react-firebase-hooks/auth";
+import { db, projectAuth} from "../firebase/config";
+
 
 type Props = {}
 
@@ -8,6 +12,7 @@ export const socials = ["Github", "LinkedIn", "Facebook", "Instagram"] as const;
 export type Socials = typeof socials;
 
 export function Create({ }: Props) {
+  const [user, ..._] = useAuthState(projectAuth);
   const [dropDown, setDropDown] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
@@ -23,7 +28,7 @@ export function Create({ }: Props) {
   }
   const [socialsValues, setSocials] = useState<SocialsData[]>([]);
 
-  const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const HandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const FormData = {
       name,
@@ -33,8 +38,10 @@ export function Create({ }: Props) {
       linkTree,
       socialsValues
     }
-    console.log(FormData)
-
+    if (!user) {
+      return;
+    }
+    await setDoc(doc(db, "BusinessCard", user.uid), FormData);
   }
   return (
     <div className="mt-20">

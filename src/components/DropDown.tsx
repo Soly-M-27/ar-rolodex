@@ -40,7 +40,7 @@ export const DropDown = ({ dropDown, setDropDown, values,  setSelectedValues }: 
         <div id="dropdownBgHover" className={`z-10 ${dropDown ? "" : "hidden"} mb-2 rounded-lg shadow dark:bg-gray-700`}>
           <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
             {values?.map((value) => (
-              <DropDownInput value={value} setSelectedValues={setSelectedValues}  />
+              <DropDownInput key={value} value={value} setSelectedValues={setSelectedValues}  />
             ))}
           </ul>
         </div>
