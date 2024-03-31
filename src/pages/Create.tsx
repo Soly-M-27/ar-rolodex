@@ -57,10 +57,12 @@ export function Create({ }: Props) {
     const docRef = doc(db, "BusinessCards", user.uid);
     const BusinessCardData = BusinessCardsDocs?.docs.map((doc) => doc.data());
     if (!BusinessCardData) {
-      await setDoc(docRef, {"cards":[FormData]});
+      await setDoc(docRef, {"cards":[FormData], uid: user.uid});
       return;
     }
-    await setDoc(docRef, {"cards":[...BusinessCardData.map(data=>data.cards), FormData]});
+    const cards = BusinessCardData.map(data=>data.cards)[0]
+
+    await setDoc(docRef, {"cards":[...cards, FormData], uid: user.uid});
   }
   return (
     <div className="mt-20">
