@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { app, projectAuth, projectStorage } from "../firebase/config";
 import { getFirestore } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 
 type Props = {};
@@ -20,7 +20,7 @@ export const socials = [
 
 export type Socials = typeof socials;
 
-export function Create({}: Props) {
+export function Create({ }: Props) {
   const [user, ..._] = useAuthState(projectAuth);
   const [dropDown, setDropDown] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
@@ -55,10 +55,17 @@ export function Create({}: Props) {
     const FileRef = ref(projectStorage, uploadPath);
 
     if (image) {
-        await uploadFile(FileRef, image, {
-            contentType: 'image/jpeg'
-        });
+      await uploadFile(FileRef, image, {
+        contentType: 'image/jpeg'
+      });
     }
+    //@ts-ignore
+    const compiler: any = new window.MINDAR.Compiler()
+
+    await compiler.compileImageTargets(image)
+    const blob = new Blob(await compiler.exportData(), { type: 'application/octet-stream' })
+    const mindFile = new File([blob], `${image?.name}.mind`, { type: 'application/octet-stream' })
+    await uploadBytes(FileRef, mindFile); 
 
     const mindURL = await getDownloadURL(FileRef);
     console.log("photoURL: ", mindURL);

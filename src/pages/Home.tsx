@@ -5,7 +5,6 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { getFirestore, collection, query, where } from "firebase/firestore";
 import { app } from "../firebase/config";
 import Card from "../components/Card";
-import { AFrameViewer } from "../components";
 
 type Props = {};
 
@@ -70,7 +69,6 @@ export function Home({}: Props) {
             </>
           );
         })}
-        {/*<AFrameViewer/>*/}
       </div>
     </>
   );

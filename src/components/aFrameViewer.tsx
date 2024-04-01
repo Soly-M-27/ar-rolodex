@@ -1,17 +1,14 @@
-import "aframe";
-import "mind-ar";
-import { Scene, Entity } from "aframe-react";
+// @ts-nocheck
+import React, { useState } from "react";
 
-type Props = {};
-
-export function AFrameViewer({ }: Props) {
+export function AFrameViewer({ }) {
+  const [show, setShow] = useState(false);
+  if (!show) {
+    return (<button onClick={() => setShow(true)}>Show AR</button>)
+  }
   return (
-      <Scene>
-        <Entity geometry={{primitive: 'box'}} material={{color: 'red'}} position={{x: 0, y: 0, z: -5}}/>
-        <Entity particle-system={{preset: 'snow'}}/>
-        <Entity light={{type: 'point'}}/>
-        <Entity text={{value: 'Hello, WebVR!'}}/>
-      </Scene>
-
-  );
+    <a-scene>
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+    </a-scene>
+  )
 }

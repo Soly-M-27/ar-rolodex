@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"; 
 import { faFacebook, faInstagram, faTwitter, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { AFrameViewer } from "../components";
 type Props = {
   NameBusiness: string;
   Location: string;
@@ -47,11 +48,11 @@ export const SocialLink = ({ href,  social_key}: SocialProps) => {
 }
 
 export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links, mindURL }: Props) {
-
+  console.log("mindURL: ", mindURL);
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700">
-      <a href="#" className="flex mt-6 justify-center">
-        <img className="rounded-t-lg" src={mindURL} width={300} alt="" />
+      <a href="/aframe" className="flex mt-6 justify-center">
+        <img src={mindURL} alt="MindURL" className="object-contain" />
       </a>
 
       <div className="p-5">

@@ -36,7 +36,7 @@ export function SidebarNav({}: Props) {
             </Link>{" "}
           </li>
           <li>
-            <Link to="/" className="flex ml-4 gap-2">
+            <Link to="/create" className="flex ml-4 gap-2">
               <img src={AddIcon} alt="dashboard icon text-white" />
               <span className="font-bold">New Build</span>
             </Link>{" "}
