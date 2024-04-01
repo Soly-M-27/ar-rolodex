@@ -7,6 +7,7 @@ type Props = {
   Link_Tree_Link: string;
   phone_number: string;
   social_links?: { social: "Facebook" | "Instagram" | "Twitter" | "Github", url: string }[];
+  mindURL: string;
 }
 
 type LinkProps = {
@@ -45,12 +46,12 @@ export const SocialLink = ({ href,  social_key}: SocialProps) => {
   return <a className="text-3xl" href={href}>{social}</a>;
 }
 
-export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links }: Props) {
+export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links, mindURL }: Props) {
 
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700">
       <a href="#" className="flex mt-6 justify-center">
-        <img className="rounded-t-lg" src="https://source.unsplash.com/3tYZjGSBwbk" width={300} alt="" />
+        <img className="rounded-t-lg" src={mindURL} width={300} alt="" />
       </a>
 
       <div className="p-5">
