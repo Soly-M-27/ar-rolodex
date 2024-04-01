@@ -19,6 +19,9 @@ export function Aframe({}: Props) {
   );
   const data = documents?.docs.map((doc) => doc.data())[0];
   console.log(data)
+  if (!data) {
+    return <div>loading...</div>
+  }
   return (
     <AFrameViewer data={data}/>
   )
