@@ -65,6 +65,7 @@ export function Home({}: Props) {
                 phone_number={card.phoneNumber}
                 social_links={card.socialsValues}
                 mindURL={card.mindURL}
+                imgURL={card.imgURL}
               />
             </>
           );

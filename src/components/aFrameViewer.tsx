@@ -1,14 +1,19 @@
 // @ts-nocheck
 import React, { useState } from "react";
 
-export function AFrameViewer({ }) {
+export function AFrameViewer({}) {
+  const [documents, _, error_c] = useCollection(
+    query(
+      collection(getFirestore(app), "BusinessCards"),
+      where("uid", "==", user?.uid || "")
+    ),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
   const [show, setShow] = useState(false);
   if (!show) {
-    return (<button onClick={() => setShow(true)}>Show AR</button>)
+    return <button onClick={() => setShow(true)}>Show AR</button>;
   }
-  return (
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    </a-scene>
-  )
+  return <a-scene></a-scene>;
 }

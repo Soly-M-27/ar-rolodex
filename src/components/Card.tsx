@@ -9,6 +9,7 @@ type Props = {
   phone_number: string;
   social_links?: { social: "Facebook" | "Instagram" | "Twitter" | "Github", url: string }[];
   mindURL: string;
+  imgURL: string;
 }
 
 type LinkProps = {
@@ -47,12 +48,12 @@ export const SocialLink = ({ href,  social_key}: SocialProps) => {
   return <a className="text-3xl" href={href}>{social}</a>;
 }
 
-export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links, mindURL }: Props) {
+export default function Card({ NameBusiness, Location, Link_Tree_Link, phone_number, social_links, mindURL, imgURL }: Props) {
   console.log("mindURL: ", mindURL);
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700">
       <a href="/aframe" className="flex mt-6 justify-center">
-        <img src={mindURL} alt="MindURL" className="object-contain" />
+        <img src={imgURL} alt="MindURL" className="object-contain" />
       </a>
 
       <div className="p-5">

@@ -64,11 +64,15 @@ export function Create({ }: Props) {
 
     await compiler.compileImageTargets(image)
     const blob = new Blob(await compiler.exportData(), { type: 'application/octet-stream' })
-    const mindFile = new File([blob], `${image?.name}.mind`, { type: 'application/octet-stream' })
-    await uploadBytes(FileRef, mindFile); 
+    const mindFile = new File([blob], `${image?.name.split('.')[0]}.mind`, { type: 'application/mind' })
+    console.log("mindFile after .mind: ", mindFile);
 
-    const mindURL = await getDownloadURL(FileRef);
-    console.log("photoURL: ", mindURL);
+    const mindPath = `mind/${user?.uid}/${mindFile?.name}`;
+    const mindRef = ref(projectStorage, mindPath);
+    await uploadBytes(mindRef, mindFile); 
+
+    const imgURL = await getDownloadURL(FileRef);
+    const mindURL = await getDownloadURL(mindRef);
 
     const FormData = {
       name,
@@ -78,6 +82,7 @@ export function Create({ }: Props) {
       phoneNumber,
       linkTree,
       socialsValues,
+      imgURL,
       mindURL,
     };
     if (!user) {
