@@ -17,6 +17,7 @@ export const AFrameViewer = ({ data }) => {
   return (
     <div className="absolute mt-48 w-full">
       <a-scene
+        ref={sceneRef}
         mindar-image="imageTargetSrc: ./targets.mind; showStats: true;"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
