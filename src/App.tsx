@@ -16,7 +16,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Create" element={<Create />} />
-            <Route path="/Aframe" element={<Aframe/>} />
+            <Route path="/Aframe" element={<Aframe />} />
           </Routes>
         </BrowserRouter>
       </SidebarProvider>
