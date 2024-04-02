@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect } from "react";
+import 'aframe'
 import 'mind-ar';
 
 
