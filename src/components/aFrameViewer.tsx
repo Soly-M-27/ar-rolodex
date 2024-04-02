@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect } from "react";
-import 'mind-ar/dist/mindar-image-aframe.prod.js';
+import 'mind-ar';
 
 
 export function AFrameViewer({ data }) {
