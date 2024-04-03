@@ -79,6 +79,7 @@ export function Create({ }: Props) {
     const imgURL = await getDownloadURL(FileRef);
     const mindURL = await compileMind(image, user);
 
+    //TODO: add an id for the card bases on timestamp?
     const FormData = {
       name,
       businessName,
