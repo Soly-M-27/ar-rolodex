@@ -8,7 +8,6 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { User } from "firebase/auth";
-import "mind-ar"
 
 type Props = {};
 
