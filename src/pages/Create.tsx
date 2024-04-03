@@ -7,6 +7,8 @@ import { getFirestore } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
+import { User } from "firebase/auth";
+import "mind-ar"
 
 type Props = {};
 
@@ -17,6 +19,22 @@ export const socials = [
   "Instagram",
   "Twitter",
 ] as const;
+export const compileMind = async (image: File |null , user: User | null | undefined) => {
+    //@ts-ignore
+    const compiler: any = new window.MINDAR.Compiler()
+    await compiler.compileImageTargets(image)
+    const blob = new Blob(await compiler.exportData(), { type: 'application/octet-stream' })
+    const mindFile = new File([blob], `${image?.name.split('.')[0]}.mind`, { type: 'application/mind' })
+    console.log("mindFile after .mind: ", mindFile);
+
+    const mindPath = `mind/${user?.uid}/${mindFile?.name}`;
+    const mindRef = ref(projectStorage, mindPath);
+    await uploadBytes(mindRef, mindFile); 
+    const mindURL = await getDownloadURL(mindRef);
+    return mindURL
+}
+
+
 
 export type Socials = typeof socials;
 
@@ -59,20 +77,8 @@ export function Create({ }: Props) {
         contentType: 'image/jpeg'
       });
     }
-    //@ts-ignore
-    const compiler: any = new window.MINDAR.Compiler()
-
-    await compiler.compileImageTargets(image)
-    const blob = new Blob(await compiler.exportData(), { type: 'application/octet-stream' })
-    const mindFile = new File([blob], `${image?.name.split('.')[0]}.mind`, { type: 'application/mind' })
-    console.log("mindFile after .mind: ", mindFile);
-
-    const mindPath = `mind/${user?.uid}/${mindFile?.name}`;
-    const mindRef = ref(projectStorage, mindPath);
-    await uploadBytes(mindRef, mindFile); 
-
     const imgURL = await getDownloadURL(FileRef);
-    const mindURL = await getDownloadURL(mindRef);
+    const mindURL = await compileMind(image, user);
 
     const FormData = {
       name,
