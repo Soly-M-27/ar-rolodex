@@ -23,6 +23,6 @@ export function Aframe({}: Props) {
     return <div>loading...</div>
   }
   return (
-    <AFrameViewer data={data}/>
+    <AFrameViewer card_data={data} user={user}/>
   )
 }
