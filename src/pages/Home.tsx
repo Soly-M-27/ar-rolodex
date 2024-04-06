@@ -4,7 +4,7 @@ import { Navigate, Link } from "react-router-dom";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getFirestore, collection, query, where } from "firebase/firestore";
 import { app } from "../firebase/config";
-import Card from "../components/Card";
+import { Card } from "../components";
 
 type Props = {};
 

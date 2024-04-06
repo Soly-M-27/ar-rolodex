@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { Login, Home, SignUp, Create, Aframe } from "./pages";
 import { Navbar, SidebarNav } from "./components";
-import { SidebarProvider } from "./context/SidebarContext";
+import { SidebarProvider } from "./context";
 
 function App() {
   return (

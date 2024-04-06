@@ -6,7 +6,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { projectAuth, db, projectStorage } from "../firebase/config";
-import {useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { Navigate } from "react-router-dom";
 
 type Props = {};

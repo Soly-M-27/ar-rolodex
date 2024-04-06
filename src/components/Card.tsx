@@ -64,7 +64,7 @@ export const SocialLink = ({ href, social_key }: SocialProps) => {
   );
 };
 
-export default function Card({
+export function Card({
   NameBusiness,
   Location,
   Link_Tree_Link,
